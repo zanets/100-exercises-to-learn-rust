@@ -7,6 +7,9 @@ mod tests {
     #[test]
     fn u16_to_u32() {
         let v: u32 = 47;
+        // u16 -> unsigned 16bit
+        // 0000 0000 0010 1111
+        // 32 bit is larger thank 16bit, so the value doesnt change 
         assert_eq!(47u16 as u32, v);
     }
 
@@ -19,12 +22,11 @@ mod tests {
         // literal. If we were to use a variable, the compiler wouldn't be able to
         // catch this at compile time.
         #[allow(overflowing_literals)]
+        // 255:u8 -> 11111111 u8: 0-255
         let x = { 255 as i8 };
         // 1111 1111
 
-        // You could solve this by using exactly the same expression as above,
-        // but that would defeat the purpose of the exercise. Instead, use a genuine
-        // `i8` value that is equivalent to `255` when converted to `u8`.
+        // 255:i8 -> (-128) + (64+32+16+8+4+2+1) = -128 + 127 = -1
         let y: i8 = -1;
 
         assert_eq!(x, y);
