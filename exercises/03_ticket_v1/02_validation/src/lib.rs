@@ -1,7 +1,14 @@
+use std::str::FromStr;
 struct Ticket {
     title: String,
     description: String,
     status: String,
+}
+
+enum Status {
+    ToDo,
+    Doing,
+    Done
 }
 
 impl Ticket {
@@ -18,11 +25,43 @@ impl Ticket {
     // as well as some `String` methods. Use the documentation of Rust's standard library
     // to find the most appropriate options -> https://doc.rust-lang.org/std/string/struct.String.html
     fn new(title: String, description: String, status: String) -> Self {
-        todo!();
+        if title == ""{
+            panic!("Title cannot be empty");
+        }
+
+        if title.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+        if description == ""{
+            panic!("Description cannot be empty");
+        }
+
+        if description.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+
+        if ! status.parse::<Status>().is_ok() {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowedn 50 bytes");
+        }
+
         Self {
             title,
             description,
             status,
+        }
+    }
+}
+
+impl FromStr for Status {
+    type Err = String;
+    
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+
+        match s {
+            "To-Do" => Ok(Status::ToDo),
+            "In Progress" => Ok(Status::Doing),
+            "Done" => Ok(Status::Done),
+            _ => Err(format!("'{}' 不是一個有效的狀態", s)),
         }
     }
 }
