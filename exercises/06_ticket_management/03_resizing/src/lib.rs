@@ -9,9 +9,15 @@ mod tests {
 
         v.push(3); // beyond capacity, needs to resize
 
-        // Can you guess what the new capacity will be?
-        // Beware that the standard library makes no guarantees about the
-        // algorithm used to resize the vector, so this may change in the future.
-        assert_eq!(v.capacity(), todo!());
+        /*
+        Vec 空間不夠時，不是只多一格，而是把容量翻倍：
+
+
+        容量 2 → 滿了 → 新容量 4
+        容量 4 → 滿了 → 新容量 8
+        容量 8 → 滿了 → 新容量 16
+
+        */
+        assert_eq!(v.capacity(), 4);
     }
 }

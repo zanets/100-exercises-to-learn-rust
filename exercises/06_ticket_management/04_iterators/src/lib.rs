@@ -13,6 +13,8 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+impl IntoIterator for TicketStore {}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
     pub title: TicketTitle,

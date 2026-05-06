@@ -38,7 +38,13 @@ impl Ticket {
         }
     }
     pub fn assigned_to(&self) -> &str {
-        todo!()
+        // match 預設會 move。Rust 裡任何對 owned 值的操作都可能 move
+        // move 進 match 的 arm 裡，由那個 arm 接管 ownership
+        // match 結束後，arm 裡的變數離開 scope 就釋放了
+        match &self.status {
+            Status::InProgress { assigned_to } => assigned_to.as_str(),
+            _ => panic!("Only `In-Progress` tickets can be assigned to someone"),
+        }
     }
 }
 
