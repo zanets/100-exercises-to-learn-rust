@@ -10,6 +10,16 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+impl IntoIterator for TicketStore {
+    type Item = Ticket;
+
+    type IntoIter = std::vec::IntoIter<Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        
+    }
+}
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Ticket {
     title: TicketTitle,

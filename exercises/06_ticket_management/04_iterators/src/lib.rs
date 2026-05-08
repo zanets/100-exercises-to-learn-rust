@@ -13,7 +13,30 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
-impl IntoIterator for TicketStore {}
+/*
+IntoIterator 是一個 trait，你只需要實作它規定的方法，告訴 Rust「怎麼產生一個 iterator」。
+
+Rust 的 for loop 其實是語法糖，自動幫你呼叫 into_iter()：
+
+// 你寫的
+for ticket in store { ... }
+
+// Rust 展開成
+let mut iter = store.into_iter();
+while let Some(ticket) = iter.next() { ... }
+*/
+
+impl IntoIterator for TicketStore {
+    // type Item = 每次迭代產出的元素型別
+    type Item = Ticket;
+
+    // type IntoIter = 實際的 iterator 型別，直接用 Vec 的
+    type IntoIter = std::vec::IntoIter<Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.into_iter()
+    }
+}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
